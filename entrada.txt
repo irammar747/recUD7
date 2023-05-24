@@ -1,7 +1,7 @@
-Lunes 14 22 12
-Martes 12 24 14
-Miercoles 15 27 18
-Jueves 10 28 20
-Viernes 15 30 20
-Sabado 17 30 21
-Domingo 16 28 20
+Lunes 14 22 12 -1
+Martes 12 24 -1
+Miercoles 15 -1
+Jueves -1
+Viernes 15 20 -1
+Sabado -1
+Domingo 16 28 20 -1
