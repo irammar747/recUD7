@@ -1,0 +1,12 @@
+Enero 140 220 120 -1
+Febrero 12 240 -1
+Marzo 150 -1
+Abril -1
+Mayo 15 200 -1
+Junio -1
+Julio 160 280 20 -1
+Agosto 34 120 -1
+Septiembre 123 234 23 -1
+Octubre -1
+Noviembre -1
+Diciembre -1

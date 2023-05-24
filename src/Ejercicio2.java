@@ -1,66 +1,61 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Ejercicio2 {
-    private final static int TAM_REG = (50*2+2) + 1 + Integer.BYTES + Double.BYTES;
-    private final static int TAM_CABECERA = Integer.BYTES;
-
     public static void main(String[] args) {
+        File f = new File("datos2.dat");
+        Map<String, List<Integer>> registros;
         Scanner sc = new Scanner(System.in);
-        File f = new File("datos.dat");
-        if(!f.exists()){
-            System.out.println("Creando el fichero...");
-            try(RandomAccessFile raf = new RandomAccessFile("entrada.dat", "rw")){
-                //Inicialmente no habrá ningún peso
-                raf.writeInt(0);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+            System.out.println("Cargando datos ...");
+            registros = (Map<String, List<Integer>>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("Comenzando nueva semana ...");
+            registros = new HashMap<>();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        mostrarTemperaturas(registros);
+
+        String dia;
+        List<Integer> temperaturas= new ArrayList<>();
+
+        System.out.println("Dia de la semana: ");
+        dia = sc.next();
+
+        System.out.println("Temperatura a las 8 horas: ");
+        temperaturas.add(sc.nextInt());
+        System.out.println("Temperatura a las 14 horas: ");
+        temperaturas.add(sc.nextInt());
+        System.out.println("Temperatura a las 22 horas: ");
+        temperaturas.add(sc.nextInt());
+
+        registros.put(dia,temperaturas);
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("datos2.dat"))){
+            System.out.println("Guardando datos ...");
+            oos.writeObject(registros);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void mostrarTemperaturas(Map<String,List<Integer>> temperaturas){
+        if(temperaturas.isEmpty()){
+            System.out.println("No hay temperaturas registradas");
         }else{
-            try(RandomAccessFile raf = new RandomAccessFile("entrada.dat", "rw")){
-                boolean salir = false;
-                while(!salir){
-                    switch (mostrarMenu(sc)){
-                        case 1:
-                            introducirPeso(raf, sc);
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 0:
-                            salir = true;
-                            break;
-                        default:
-                            System.out.println("Opción incorrecta");
-                    }
+            System.out.println("Temperaturas registradas: ");
+            for(String d : temperaturas.keySet()){
+                System.out.printf("%s: [", d);
+                for(int t : temperaturas.get(d)){
+                    System.out.printf(" %d ", t);
                 }
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.printf("]\n");
             }
         }
 
     }
-    public static int mostrarMenu(Scanner sc){
-        int opcion;
-
-        System.out.println("Menú");
-        System.out.println("1. Introducir peso");
-        System.out.println("2. Mostrar peso");
-        System.out.println("3. Generar Informe");
-        System.out.println("4. Salir");
-
-        opcion = sc.nextInt();
-
-        return opcion;
-
-    }
-    public static void introducirPeso(RandomAccessFile raf, Scanner sc){
-
-    }
 }
+

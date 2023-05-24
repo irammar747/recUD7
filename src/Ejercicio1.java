@@ -3,10 +3,10 @@ import java.util.Scanner;
 
 public class Ejercicio1 {
     public static void main(String[] args) {
-        try(Scanner sc = new Scanner(new FileReader("entrada.txt"));
-            PrintWriter pw = new PrintWriter(new FileWriter("salida.txt"))) {
+        try(Scanner sc = new Scanner(new FileReader("afluencia.txt"));
+            PrintWriter pw = new PrintWriter(new FileWriter("estadistica.txt"))) {
             while(sc.hasNext()){
-                String nombreDia = sc.next();
+                String nombreMes = sc.next();
                 int sumaTem = 0;
                 int temp;
                 int numTemp = 0;
@@ -17,10 +17,10 @@ public class Ejercicio1 {
                     numTemp++;
                 }
                 if(numTemp == 0){
-                    pw.println(String.format("%s: No hay datos", nombreDia));
+                    pw.println(String.format("%s: No hay datos", nombreMes));
                 }else{
                     double r = (double)sumaTem/numTemp;
-                    pw.println(String.format("%s: %.2f", nombreDia, r));
+                    pw.println(String.format("%s: %.2f", nombreMes, r));
                 }
 
             }
