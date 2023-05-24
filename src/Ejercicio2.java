@@ -20,7 +20,6 @@ public class Ejercicio2 {
         }else{
             try(RandomAccessFile raf = new RandomAccessFile("entrada.dat", "rw")){
                 int opcion;
-                while(opcion)
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
